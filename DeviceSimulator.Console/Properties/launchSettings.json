@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DeviceSimulator.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--apiKey \"3a6e3e3c92506901aa1ef92e50806c10\" -s \"0ne0021BF6A\" -c \"C:\\Projects\\Diiage\\new-device.cert.pfx\" -p \"1234\""
+    }
+  }
+}
