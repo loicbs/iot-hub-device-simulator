@@ -11,7 +11,7 @@ namespace DeviceSimulator.ConsoleApp
         /// The Api key for the weather provider API.
         /// </summary>
         /// <example>123456789</example>
-        [Option('k', "apiKey", Required = true, HelpText = "The Api key for the weather provider API.")]
+        [Option('a', "apiKey", Required = true, HelpText = "The Api key for the weather provider API.")]
         public string WeatherApiKey { get; set; }
 
         /// <summary>
