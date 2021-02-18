@@ -23,11 +23,13 @@ namespace DeviceSimulator.ConsoleApp.Services
         private readonly SecurityProviderX509Certificate security;
         private readonly ProvisioningTransportHandlerAmqp transport;
         private DeviceClient deviceClient;
-        private string deviceLocation = "Lyon";
+        private static string deviceLocation = "Lyon";
+        private static int telemetryInterval = 5000;
 
         private readonly IWeatherService weatherService;
         private readonly DeviceOptions options;
         private readonly ILogger logger;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceService"/> class.
@@ -130,9 +132,16 @@ namespace DeviceSimulator.ConsoleApp.Services
                 logger.LogInformation($"Setting the desired temperlocationature to: {deviceLocation}");
             }
 
+            if (desiredProperties.Contains("telemetryInterval"))
+            {
+                telemetryInterval = desiredProperties["telemetryInterval"];
+                logger.LogInformation($"Setting the telemetry interval to: {telemetryInterval}");
+            }
+
             // Report Twin properties.
             var reportedProperties = new TwinCollection();
             reportedProperties["location"] = deviceLocation;
+            reportedProperties["telemetryInterval"] = telemetryInterval;
             await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
             logger.LogInformation($"Reported Twin Properties: {reportedProperties.ToJson()}");
         }
@@ -158,7 +167,7 @@ namespace DeviceSimulator.ConsoleApp.Services
                 await deviceClient.SendEventAsync(message);
                 logger.LogInformation("Message sent");
 
-                await Task.Delay(5000);
+                await Task.Delay(telemetryInterval);
             }
         }
 
