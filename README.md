@@ -28,3 +28,9 @@ You can follow the steps 1 to 5 of the [Automatically provision IoT devices secu
    ```
 
 > If you followed the MS learn module, the certificate password is '1234'
+
+
+### Twin support
+The device simulator support two twins:
+* **location**: Defines the location of the device to obtain local weather information.
+* **telemetryInterval**: Defines the time interval between the sending of two telemetries.
