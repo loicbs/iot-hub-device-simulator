@@ -24,6 +24,7 @@ You can follow the steps 1 to 5 of the [Automatically provision IoT devices secu
    ```
 2. Run the console
    ```sh
+   cd DeviceSimulator.Console
    dotnet run --apiKey "<your OpenWeather API key>" --dpsScope "<your DPS scope>" --certificatePath "<path to the device certificate>" --certificatePassword "<device certificate password>"
    ```
 
