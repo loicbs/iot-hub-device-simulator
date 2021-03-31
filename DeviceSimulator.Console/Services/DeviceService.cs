@@ -79,6 +79,10 @@ namespace DeviceSimulator.ConsoleApp.Services
             // Setup OnDesiredPropertyChanged Event Handling to receive Desired Properties changes.
             logger.LogInformation("Connecting SetDesiredPropertyUpdateCallbackAsync event handler...");
             await deviceClient.SetDesiredPropertyUpdateCallbackAsync(OnDesiredPropertyChangedAsync, null);
+            
+            // Setup the default direct methods handler. To manage a particular method, use the SetMethodHandlerAsync method.
+            logger.LogInformation("Configuring remote command handler...");
+            await deviceClient.SetMethodDefaultHandlerAsync(OnDefaultCommandReceivedAsync, null);
 
             // Load Device Twin Properties since device is just starting up.
             logger.LogInformation("Loading Device Twin Properties...");
@@ -144,6 +148,23 @@ namespace DeviceSimulator.ConsoleApp.Services
             reportedProperties["telemetryInterval"] = telemetryInterval;
             await deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
             logger.LogInformation($"Reported Twin Properties: {reportedProperties.ToJson()}");
+        }
+        /// <summary>
+        /// Handles all methods that are not explicitly handled.
+        /// </summary>
+        /// <param name="methodRequest">The data structure that represents a method request.</param>
+        /// <param name="userContext">The context of the user.</param>
+        /// <returns>A <see cref="Task"/> that represents the asynchronous operation.</returns>
+        
+        private Task<MethodResponse> OnDefaultCommandReceivedAsync(MethodRequest methodRequest, object userContext)
+        {
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Command received {methodRequest.Name}");
+            Console.ResetColor();
+
+            string result = $"{{\"result\":\"Executed direct method: {methodRequest.Name}\"}}";
+            return Task.FromResult(new MethodResponse(Encoding.UTF8.GetBytes(result), 200));
         }
 
         /// <summary>
