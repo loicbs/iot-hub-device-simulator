@@ -6,7 +6,7 @@ A device simulator to demonstrate connection to the IoT Hub with DPS and telemet
 ### Prerequisites
 
 #### DotNet Core
-This projetc use DotNet core 3.1, you can download the SDK on [this page](https://dotnet.microsoft.com/download).
+This project use DotNet core 3.1, you can download the SDK on [this page](https://dotnet.microsoft.com/download).
 
 #### OpenWeather API key
 The device simulator uses the [OpenWeather API](https://openweathermap.org/api) to send real weather data. Therefore, you must [create a free account](https://home.openweathermap.org/users/sign_up) on this platform and get an API key.
